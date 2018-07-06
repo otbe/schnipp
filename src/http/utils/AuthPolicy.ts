@@ -104,11 +104,13 @@ export class AuthPolicy {
           resourceArn,
           conditions
         });
+        break;
       case Effect.Deny:
         this.denyMethods.push({
           resourceArn,
           conditions
         });
+        break;
     }
   }
 

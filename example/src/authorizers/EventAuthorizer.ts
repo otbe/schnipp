@@ -6,7 +6,7 @@ import { CustomAuthorizerResult, CustomAuthorizerEvent } from 'aws-lambda';
 export class EventAuthorizer implements AuthorizeHandler {
   handle(event: CustomAuthorizerEvent): CustomAuthorizerResult {
     if (event.authorizationToken == null) {
-      throw 'missing auth token';
+      throw 'Error: Invalid token';
     }
 
     const { region, accountId, stage, restApiId } = AuthPolicy.parseMethodArn(
@@ -34,11 +34,9 @@ export class EventAuthorizer implements AuthorizeHandler {
     });
 
     if (event.authorizationToken.includes('hacker')) {
-      throw 'hacked';
+      throw 'Unauthorized';
     }
 
-    const p = policy.build();
-    console.log(p.policyDocument.Statement.map(x => x));
-    return p;
+    return policy.build();
   }
 }

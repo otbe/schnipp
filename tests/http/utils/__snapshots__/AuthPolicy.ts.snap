@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AuthPolicy should let me create an valid poliy document 1`] = `
+exports[`AuthPolicy should let me create an valid poliy document (allow) 1`] = `
 Object {
   "context": Object {
     "foo": "bar",
@@ -24,9 +24,22 @@ Object {
         "Effect": "Allow",
         "Resource": Array [
           "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/bar",
-          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/*/*",
         ],
       },
+    ],
+    "Version": "2012-10-17",
+  },
+  "principalId": "me",
+}
+`;
+
+exports[`AuthPolicy should let me create an valid poliy document (deny) 1`] = `
+Object {
+  "context": Object {
+    "foo": "bar",
+  },
+  "policyDocument": Object {
+    "Statement": Array [
       Object {
         "Action": "execute-api:Invoke",
         "Condition": Object {
@@ -41,23 +54,50 @@ Object {
       },
       Object {
         "Action": "execute-api:Invoke",
-        "Condition": Object {
-          "cond": Object {
-            "foo": "bar",
-          },
-        },
         "Effect": "Deny",
         "Resource": Array [
-          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/foo2",
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/bar",
         ],
       },
+    ],
+    "Version": "2012-10-17",
+  },
+  "principalId": "me",
+}
+`;
+
+exports[`AuthPolicy should let me create an valid poliy document allowAll 1`] = `
+Object {
+  "context": Object {
+    "foo": "bar",
+  },
+  "policyDocument": Object {
+    "Statement": Array [
+      Object {
+        "Action": "execute-api:Invoke",
+        "Effect": "Allow",
+        "Resource": Array [
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/*/*",
+        ],
+      },
+    ],
+    "Version": "2012-10-17",
+  },
+  "principalId": "me",
+}
+`;
+
+exports[`AuthPolicy should let me create an valid poliy document denyAll 1`] = `
+Object {
+  "context": Object {
+    "foo": "bar",
+  },
+  "policyDocument": Object {
+    "Statement": Array [
       Object {
         "Action": "execute-api:Invoke",
         "Effect": "Deny",
         "Resource": Array [
-          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/bar",
-          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/*/*",
-          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/foo",
           "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/*/*",
         ],
       },
@@ -86,13 +126,6 @@ Object {
       Object {
         "Action": "execute-api:Invoke",
         "Effect": "Allow",
-        "Resource": Array [
-          "arn:aws:execute-api:*:bar:*/*/GET/",
-        ],
-      },
-      Object {
-        "Action": "execute-api:Invoke",
-        "Effect": "Deny",
         "Resource": Array [
           "arn:aws:execute-api:*:bar:*/*/GET/",
         ],
