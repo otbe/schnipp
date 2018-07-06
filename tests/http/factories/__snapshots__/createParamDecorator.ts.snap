@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createMethodParamDecorator let me create a new decortor with an proper injector attached to the method 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "paramaters": Array [
+    Object {
+      "index": 1,
+      "injector": [Function],
+    },
+    Object {
+      "index": 0,
+      "injector": [Function],
+    },
+  ],
+  "path": "/",
+  "propertyKey": "test",
+}
+`;

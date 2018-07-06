@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createResponse should create a proper response 1`] = `
+Object {
+  "body": "{}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 200,
+}
+`;
+
+exports[`createResponse should create a proper response 2`] = `
+Object {
+  "body": "{\\"foo\\":\\"bar\\"}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 400,
+}
+`;
+
+exports[`createResponse should create a proper response 3`] = `
+Object {
+  "body": "{\\"foo\\":\\"bar\\"}",
+  "headers": Object {
+    "Accept": "text/html",
+  },
+  "isBase64Encoded": false,
+  "statusCode": 400,
+}
+`;
+
+exports[`createResponse should create a proper response 4`] = `
+Object {
+  "body": "base64",
+  "headers": Object {
+    "Accept": "text/html",
+  },
+  "isBase64Encoded": true,
+  "statusCode": 300,
+}
+`;

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getControllerMetaData should return default meta data 1`] = `
+Object {
+  "basePath": "/",
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+}
+`;

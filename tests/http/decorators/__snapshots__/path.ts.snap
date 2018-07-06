@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@Path should add metadata for controller 1`] = `
+Object {
+  "basePath": "/bar",
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+}
+`;

@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthPolicy should let me create an valid poliy document 1`] = `
+Object {
+  "context": Object {
+    "foo": "bar",
+  },
+  "policyDocument": Object {
+    "Statement": Array [
+      Object {
+        "Action": "execute-api:Invoke",
+        "Condition": Object {
+          "cond": Object {
+            "foo": "bar",
+          },
+        },
+        "Effect": "Allow",
+        "Resource": Array [
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/bar2",
+        ],
+      },
+      Object {
+        "Action": "execute-api:Invoke",
+        "Effect": "Allow",
+        "Resource": Array [
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/bar",
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/*/*",
+        ],
+      },
+      Object {
+        "Action": "execute-api:Invoke",
+        "Condition": Object {
+          "cond": Object {
+            "foo": "bar",
+          },
+        },
+        "Effect": "Deny",
+        "Resource": Array [
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/bar2",
+        ],
+      },
+      Object {
+        "Action": "execute-api:Invoke",
+        "Condition": Object {
+          "cond": Object {
+            "foo": "bar",
+          },
+        },
+        "Effect": "Deny",
+        "Resource": Array [
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/foo2",
+        ],
+      },
+      Object {
+        "Action": "execute-api:Invoke",
+        "Effect": "Deny",
+        "Resource": Array [
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/bar",
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/*/*",
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/DELETE/foo",
+          "arn:aws:execute-api:us-east-1:random-account-id:random-api-id/dev/*/*",
+        ],
+      },
+    ],
+    "Version": "2012-10-17",
+  },
+  "principalId": "me",
+}
+`;
+
+exports[`AuthPolicy should parse ARN 1`] = `
+Object {
+  "accountId": "random-account-id",
+  "method": "GET",
+  "region": "us-east-1",
+  "restApiId": "random-api-id",
+  "stage": "dev",
+}
+`;
+
+exports[`AuthPolicy should work for only allow or deny 1`] = `
+Object {
+  "context": Object {},
+  "policyDocument": Object {
+    "Statement": Array [
+      Object {
+        "Action": "execute-api:Invoke",
+        "Effect": "Allow",
+        "Resource": Array [
+          "arn:aws:execute-api:*:bar:*/*/GET/",
+        ],
+      },
+      Object {
+        "Action": "execute-api:Invoke",
+        "Effect": "Deny",
+        "Resource": Array [
+          "arn:aws:execute-api:*:bar:*/*/GET/",
+        ],
+      },
+    ],
+    "Version": "2012-10-17",
+  },
+  "principalId": "foo",
+}
+`;
+
+exports[`AuthPolicy should work for only allow or deny 2`] = `
+Object {
+  "context": Object {},
+  "policyDocument": Object {
+    "Statement": Array [
+      Object {
+        "Action": "execute-api:Invoke",
+        "Effect": "Deny",
+        "Resource": Array [
+          "arn:aws:execute-api:*:bar:*/*/GET/",
+        ],
+      },
+    ],
+    "Version": "2012-10-17",
+  },
+  "principalId": "foo",
+}
+`;

@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RestController failed filter 1`] = `
+Object {
+  "body": "{\\"message\\":\\"Internal Server Error\\"}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 500,
+}
+`;
+
+exports[`RestController failed get 1`] = `
+Object {
+  "body": "{\\"statusCode\\":404}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 404,
+}
+`;
+
+exports[`RestController failed guard (with filter) 1`] = `
+Object {
+  "body": "{\\"message\\":\\"filtered error\\"}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 430,
+}
+`;
+
+exports[`RestController failed guard 1`] = `
+Object {
+  "body": "{\\"statusCode\\":500,\\"message\\":\\"Internal Server Error\\"}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 500,
+}
+`;
+
+exports[`RestController filter 1`] = `
+Object {
+  "body": "{\\"message\\":\\"filtered error\\"}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 430,
+}
+`;
+
+exports[`RestController filter with custom meta and own Use 1`] = `
+Object {
+  "body": "{\\"message\\":\\"filtered error\\"}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 430,
+}
+`;
+
+exports[`RestController filter with custom meta and own Use 2`] = `
+Object {
+  "body": "{\\"statusCode\\":403,\\"message\\":\\"Forbidden\\"}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 403,
+}
+`;
+
+exports[`RestController guard 1`] = `
+Object {
+  "body": "{\\"statusCode\\":403,\\"message\\":\\"Forbidden\\"}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 403,
+}
+`;
+
+exports[`RestController no matching filter 1`] = `
+Object {
+  "body": "{\\"statusCode\\":500,\\"message\\":\\"Internal Server Error\\"}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 500,
+}
+`;
+
+exports[`RestController no method found 1`] = `
+Object {
+  "body": "{}",
+  "headers": Object {},
+  "isBase64Encoded": false,
+  "statusCode": 404,
+}
+`;
+
+exports[`RestController simple get 1`] = `
+Object {
+  "body": "{\\"foo\\":\\"bar\\"}",
+  "headers": Object {
+    "bar": "foo",
+  },
+  "isBase64Encoded": false,
+  "statusCode": 200,
+}
+`;
+
+exports[`RestController simple post 1`] = `
+Object {
+  "body": "{\\"foo\\":\\"bar2\\"}",
+  "headers": Object {
+    "bar": "foo",
+  },
+  "isBase64Encoded": false,
+  "statusCode": 201,
+}
+`;
+
+exports[`RestController with custom header 1`] = `
+Object {
+  "body": "{\\"foo\\":\\"bar4\\"}",
+  "headers": Object {
+    "bar": "baz",
+  },
+  "isBase64Encoded": false,
+  "statusCode": 200,
+}
+`;
+
+exports[`RestController with custom path/status code 1`] = `
+Object {
+  "body": "{\\"foo\\":\\"bar3\\"}",
+  "headers": Object {
+    "bar": "foo",
+  },
+  "isBase64Encoded": false,
+  "statusCode": 204,
+}
+`;
+
+exports[`RestController with path/query param 1`] = `
+Object {
+  "body": "{}",
+  "headers": Object {
+    "bar": "foo",
+  },
+  "isBase64Encoded": false,
+  "statusCode": 200,
+}
+`;

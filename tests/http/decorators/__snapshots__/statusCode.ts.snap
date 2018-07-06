@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@StatusCode should add statusCode  1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "paramaters": Array [],
+  "path": "/",
+  "propertyKey": "test",
+  "statusCode": 245,
+}
+`;
+
+exports[`@StatusCode should coop with methods  1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "GET",
+  "paramaters": Array [],
+  "path": "/",
+  "propertyKey": "test",
+  "statusCode": 245,
+}
+`;
+
+exports[`@StatusCode should coop with methods  2`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "POST",
+  "paramaters": Array [],
+  "path": "/bar",
+  "propertyKey": "test2",
+  "statusCode": 202,
+}
+`;

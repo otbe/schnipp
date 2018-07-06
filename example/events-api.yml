@@ -1,0 +1,19 @@
+events:
+  handler: src/events.handle
+  environment:
+    EVENTS_INGRESS_QUEUE_TABLE: ${self:custom.eventsIngressQueue}
+  events:
+    - http:
+        method: post
+        path: events
+        authorizer: eventsAuthorizer
+    - http:
+        method: get
+        path: events
+        authorizer: eventsAuthorizer
+    - http:
+        method: get
+        path: events/{id}
+        authorizer: eventsAuthorizer
+eventsAuthorizer:
+  handler: src/events.authorize 

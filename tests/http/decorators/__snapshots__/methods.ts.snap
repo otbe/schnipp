@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HTTP methods @ALL should add metadata to functions 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "*",
+  "paramaters": Array [],
+  "path": "/path",
+  "propertyKey": "foo",
+  "statusCode": 200,
+}
+`;
+
+exports[`HTTP methods @DELETE should add metadata to functions 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "DELETE",
+  "paramaters": Array [],
+  "path": "/path",
+  "propertyKey": "foo",
+  "statusCode": 200,
+}
+`;
+
+exports[`HTTP methods @GET should add metadata to functions 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "GET",
+  "paramaters": Array [],
+  "path": "/path",
+  "propertyKey": "foo",
+  "statusCode": 200,
+}
+`;
+
+exports[`HTTP methods @HEAD should add metadata to functions 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "HEAD",
+  "paramaters": Array [],
+  "path": "/path",
+  "propertyKey": "foo",
+  "statusCode": 200,
+}
+`;
+
+exports[`HTTP methods @OPTIONS should add metadata to functions 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "OPTIONS",
+  "paramaters": Array [],
+  "path": "/path",
+  "propertyKey": "foo",
+  "statusCode": 200,
+}
+`;
+
+exports[`HTTP methods @PATCH should add metadata to functions 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "PATCH",
+  "paramaters": Array [],
+  "path": "/path",
+  "propertyKey": "foo",
+  "statusCode": 200,
+}
+`;
+
+exports[`HTTP methods @POST should add metadata to functions 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "POST",
+  "paramaters": Array [],
+  "path": "/path",
+  "propertyKey": "foo",
+  "statusCode": 201,
+}
+`;
+
+exports[`HTTP methods @PUT should add metadata to functions 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "PUT",
+  "paramaters": Array [],
+  "path": "/path",
+  "propertyKey": "foo",
+  "statusCode": 200,
+}
+`;

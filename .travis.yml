@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - '8'
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+script: yarn test:ci
+
+before_deploy:
+  - yarn build
+  - cd dist
+
+deploy:
+  provider: npm
+  email: benjamin.otto@style-systems.de
+  skip_cleanup: true
+  api_key:
+    secure: r32XVzXT2d/FMhN0QAroPY/VvxufMtgqCcuPs09Kzd5I7xXAKxBzQnqzgiDEU3Xy/qS1AC855qOMRgIca1rC0zRh4AQ6KlrogXsMDPAlRtOuzjsVpsjUCEKlvYaeJ7/RyqFVWWo4OvUhu1OZDKyOSFCQojQccbxBadoJSl4ZUxfa0/wA5o/qNk2vP+TWUvp0NmkgpneK6v+gIWgpgcEM94K8jZ5TbcFg9wTywjkZyYhA+5Ah4Wefrcq3IbfYBcee0a6pUL2OkYfO7xXrOoMLp4L2IGgR0Bbr49j9Decu8JzHNJagbeyx8EesziK8PVau6lFkN8bdbqMxMpAG58g6yaidOefnN5jlMxEqSUuuJvKYL98UPPyvQVAM42zX+DipYuddmN5Xlvh80P6HhwK4PgyjhvBzllJ8SHKwO/WCeFDBeVW/FhsrNsMRGtL62AdWBYsiBGy10wUVDgw5JX2/U5V9V4uN0JY9vNqZQLIIxAxrDrUplagnwXtiASAubcbIjgaYxbY6zvq95T8MpxpV75Q3G0X3d1ly0diAPc1Hd0Tc67LLKFBiaCGpEwyl2cIf97xKLFCk87X2OFG9PdeJA+A86andiRKfIxfgGRSpsoE7C056PFTqA2JynrE7v7Sl2gWtk5aoMiLPbnr+H9qNiMfG4hAnK/hI6RA0rCCLD2A=
+  on:
+    tags: true
+    repo: otbe/schnipp

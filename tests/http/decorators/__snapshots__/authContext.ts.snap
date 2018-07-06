@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@AuthContext attach proper injector to method param 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "paramaters": Array [
+    Object {
+      "index": 0,
+      "injector": [Function],
+    },
+  ],
+  "path": "/",
+  "propertyKey": "test",
+}
+`;

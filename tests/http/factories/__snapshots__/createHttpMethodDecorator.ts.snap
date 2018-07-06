@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`findMethod find method for request 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "GET",
+  "paramaters": Array [],
+  "path": "/",
+  "propertyKey": "get",
+  "statusCode": 200,
+}
+`;
+
+exports[`findMethod find method for request 2`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "GET",
+  "paramaters": Array [],
+  "path": "/{id}",
+  "propertyKey": "detail",
+  "statusCode": 200,
+}
+`;
+
+exports[`findMethod find method for request 3`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "POST",
+  "paramaters": Array [],
+  "path": "/",
+  "propertyKey": "post",
+  "statusCode": 201,
+}
+`;
+
+exports[`findMethod find method for request 4`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "method": "*",
+  "paramaters": Array [],
+  "path": "/",
+  "propertyKey": "all",
+  "statusCode": 200,
+}
+`;
+
+exports[`getMethodMetaData should return default meta data 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {},
+  "paramaters": Array [],
+  "path": "/",
+  "propertyKey": "test",
+}
+`;
