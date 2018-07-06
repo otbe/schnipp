@@ -27,7 +27,7 @@
     "test": "jest",
     "test:ci": "yarn lint && yarn test --coverageReporters text --coverageReporters lcovonly && cat coverage/lcov.info | coveralls",
     "test:watch": "yarn test --watch",
-    "preversion": "yarn test:ci",
+    "preversion": "yarn lint && yarn test",
     "postversion": "git push && git push --tags",
     "clean": "rimraf dist",
     "copy-release-files": "cp package.json dist/package.json && cp README.md dist/README.md"
