@@ -9,14 +9,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/otbe/schnipp.git"
+    "url": "https://github.com/otbe/schnipp.git"
   },
   "author": "Benjamin Otto",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/otbe/schnipp/issues"
   },
-  "homepage": "https://github.com/otbe/schnipp#readme",
+  "homepage": "https://github.com/otbe/schnipp",
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
