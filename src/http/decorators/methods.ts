@@ -1,16 +1,11 @@
 import { createHttpMethodDecorator } from '../factories/createHttpMethodDecorator';
 import { HttpVerb } from '../utils/AuthPolicy';
 
-const { GET, POST, DELETE, HEAD, OPTIONS, PATCH, PUT, ALL } = Object.keys(
-  HttpVerb
-).reduce<
-  { [key in keyof typeof HttpVerb]: (path?: string) => MethodDecorator }
->(
-  (acc: any, verb: HttpVerb) => {
-    acc[verb] = createHttpMethodDecorator(verb);
-    return acc;
-  },
-  {} as any
-);
-
-export { GET, POST, DELETE, HEAD, OPTIONS, PATCH, PUT, ALL };
+export const GET = createHttpMethodDecorator(HttpVerb.GET);
+export const POST = createHttpMethodDecorator(HttpVerb.POST);
+export const DELETE = createHttpMethodDecorator(HttpVerb.DELETE);
+export const HEAD = createHttpMethodDecorator(HttpVerb.HEAD);
+export const OPTIONS = createHttpMethodDecorator(HttpVerb.OPTIONS);
+export const PATCH = createHttpMethodDecorator(HttpVerb.PATCH);
+export const PUT = createHttpMethodDecorator(HttpVerb.PUT);
+export const ALL = createHttpMethodDecorator(HttpVerb.ALL);

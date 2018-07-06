@@ -4,10 +4,10 @@ export const createMethodParameterDecorator = <T>(
   injector: ParamInjector<T>
 ): ParameterDecorator => (
   target: Object,
-  propertyKey: string,
+  propertyKey: string | symbol,
   index: number
 ) => {
-  const methodMetaData = getMethodMetaData(propertyKey, target);
+  const methodMetaData = getMethodMetaData(propertyKey.toString(), target);
 
   methodMetaData.paramaters.push({
     index,

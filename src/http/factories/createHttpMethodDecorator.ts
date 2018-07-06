@@ -40,7 +40,7 @@ export type MetaData = { [key: string]: any };
 
 export type MethodMetaData = {
   statusCode?: number;
-  method?: string;
+  method?: HttpVerb;
   path: string;
   propertyKey: string;
   headers: { [key: string]: string };
@@ -61,7 +61,7 @@ export const createHttpMethodDecorator = (method: HttpVerb) => (
   if (methodMetaData.statusCode == null) {
     methodMetaData.statusCode = method === 'POST' ? 201 : 200;
   }
-  methodMetaData.method = HttpVerb[method as any];
+  methodMetaData.method = method;
   methodMetaData.path = path;
   return descriptor;
 };
