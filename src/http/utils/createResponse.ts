@@ -12,7 +12,7 @@ export function createResponse(
 ): APIGatewayProxyResult;
 export function createResponse(
   statusCode: number,
-  body: any = {},
+  body: any = undefined,
   headers: { [key: string]: string } = {}
 ): APIGatewayProxyResult {
   return {

@@ -83,7 +83,7 @@ Object {
 
 exports[`RestController no method found 1`] = `
 Object {
-  "body": "{}",
+  "body": undefined,
   "headers": Object {},
   "isBase64Encoded": false,
   "statusCode": 404,

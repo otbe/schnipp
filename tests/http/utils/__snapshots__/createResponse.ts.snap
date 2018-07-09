@@ -2,7 +2,7 @@
 
 exports[`createResponse should create a proper response 1`] = `
 Object {
-  "body": "{}",
+  "body": undefined,
   "headers": Object {},
   "isBase64Encoded": false,
   "statusCode": 200,
