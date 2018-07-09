@@ -1,7 +1,7 @@
 import { Context, Handler } from 'aws-lambda';
 import { Container, Identifier } from 'simple-ts-di';
 
-export type IHandler<E, R> = {
+export type IHandler<E, R = void> = {
   handle(event: E, context: Context): Promise<R> | R;
 };
 
