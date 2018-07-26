@@ -1,12 +1,13 @@
 import { inject } from 'simple-ts-di';
-import { APIGatewayProxyEvent } from 'aws-lambda';
 import { Guard, MetaData } from '../../../dist/http';
+import { DefaultExecutionContext } from '../../../dist/http/utils/ExecutionContext';
 
 @inject()
 export class RolesGuard implements Guard {
-  canActivate(event: APIGatewayProxyEvent, metaData: MetaData) {
+  canActivate(executionContext: DefaultExecutionContext, metaData: MetaData) {
+    console.log(executionContext, metaData);
     if (metaData.roles) {
-      return event.requestContext
+      return executionContext
         .authorizer!.roles.split(',')
         .some(x => metaData.roles.some(y => y === x));
     }

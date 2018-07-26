@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@Meta should add metadata for methods and classes for RestControllers 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {
+    "bar": "baz",
+  },
+  "paramaters": Array [],
+  "path": "/",
+  "propertyKey": "test",
+}
+`;
+
+exports[`@Meta should add metadata for methods and classes for RestControllers 2`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {},
+  "metaData": Object {
+    "foo": "bar",
+  },
+}
+`;

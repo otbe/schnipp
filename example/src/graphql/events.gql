@@ -1,0 +1,9 @@
+type Event {
+  id: ID!
+  name: String
+}
+
+type Query {
+  event(id: ID!): Event
+  events: [Event]
+}

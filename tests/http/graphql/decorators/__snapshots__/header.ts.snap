@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@Header should add header metadata for classes for GraphQLControllers 1`] = `
+Object {
+  "filters": Array [],
+  "guards": Array [],
+  "headers": Object {
+    "foo": "bar",
+  },
+  "metaData": Object {},
+}
+`;

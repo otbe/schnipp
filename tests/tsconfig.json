@@ -5,7 +5,7 @@
       "emitDecoratorMetadata": true,
       "allowSyntheticDefaultImports": true,
       "lib": ["es6", "dom", "scripthost"],
-      "types": ["reflect-metadata", "jest"],
+      "types": ["reflect-metadata", "jest", "node"],
     }
   }
   

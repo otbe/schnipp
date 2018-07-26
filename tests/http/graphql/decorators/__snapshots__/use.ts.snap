@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@Use should add guards and filters for methods and instances of GraphQLController 1`] = `
+Object {
+  "filters": Array [
+    Object {
+      "exceptions": Array [],
+      "filter": [Function],
+    },
+  ],
+  "guards": Array [
+    [Function],
+  ],
+  "headers": Object {},
+  "metaData": Object {},
+  "resolver": Array [
+    Object {
+      "resolverMap": Object {
+        "Query": Object {
+          "foo": Object {
+            "clazz": [Function],
+            "filters": Array [
+              Object {
+                "exceptions": Array [],
+                "filter": [Function],
+              },
+            ],
+            "guards": Array [
+              [Function],
+            ],
+            "metaData": Object {},
+            "methodName": "foo",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`@Use should add guards and filters for methods and instances of GraphQLController 2`] = `
+Object {
+  "clazz": [Function],
+  "filters": Array [
+    Object {
+      "exceptions": Array [],
+      "filter": [Function],
+    },
+  ],
+  "guards": Array [
+    [Function],
+  ],
+  "metaData": Object {},
+  "methodName": "foo",
+}
+`;

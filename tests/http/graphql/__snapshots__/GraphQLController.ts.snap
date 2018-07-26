@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GraphQLController.ts should filter errors from controller on abritrary types 1`] = `
+Object {
+  "body": "{\\"data\\":{\\"foos\\":[null]},\\"errors\\":[{\\"message\\":\\"bar\\",\\"locations\\":[{\\"line\\":1,\\"column\\":10}],\\"path\\":[\\"foos\\",0,\\"id\\"]}]}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 200,
+}
+`;
+
+exports[`GraphQLController.ts should filter errors from controller on root types 1`] = `
+Object {
+  "body": "{\\"data\\":{\\"foos\\":null},\\"errors\\":[{\\"message\\":\\"bar\\",\\"locations\\":[{\\"line\\":1,\\"column\\":3}],\\"path\\":[\\"foos\\"]}]}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 200,
+}
+`;
+
+exports[`GraphQLController.ts should filter errors from method 1`] = `
+Object {
+  "body": "{\\"data\\":{\\"foos\\":[null]},\\"errors\\":[{\\"message\\":\\"Internal Server Error\\",\\"locations\\":[{\\"line\\":1,\\"column\\":10}],\\"path\\":[\\"foos\\",0,\\"id\\"]},{\\"message\\":\\"bar\\",\\"locations\\":[{\\"line\\":1,\\"column\\":13}],\\"path\\":[\\"foos\\",0,\\"name\\"]}]}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 200,
+}
+`;
+
+exports[`GraphQLController.ts should handle basic usage patterns  1`] = `
+Object {
+  "body": "{\\"data\\":{\\"foos\\":[{\\"id\\":\\"2\\",\\"name\\":\\"Hello foo\\"}]}}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 200,
+}
+`;
+
+exports[`GraphQLController.ts should map arbritary errors to graphql errors 1`] = `
+Object {
+  "body": "{\\"data\\":{\\"foos\\":null},\\"errors\\":[{\\"message\\":\\"Internal Server Error\\",\\"locations\\":[{\\"line\\":1,\\"column\\":3}],\\"path\\":[\\"foos\\"]}]}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 200,
+}
+`;
+
+exports[`GraphQLController.ts should pass custom graphql errors to the client  1`] = `
+Object {
+  "body": "{\\"data\\":{\\"foos\\":null},\\"errors\\":[{\\"message\\":\\"foo\\",\\"locations\\":[{\\"line\\":1,\\"column\\":3}],\\"path\\":[\\"foos\\"]}]}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 200,
+}
+`;
+
+exports[`GraphQLController.ts should return forbidden (null value) for specific field  1`] = `
+Object {
+  "body": "{\\"data\\":{\\"foos\\":[{\\"id\\":\\"2\\",\\"name\\":null}]},\\"errors\\":[{\\"message\\":\\"Forbidden\\",\\"locations\\":[{\\"line\\":1,\\"column\\":13}],\\"path\\":[\\"foos\\",0,\\"name\\"]}]}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 200,
+}
+`;
+
+exports[`GraphQLController.ts should return forbidden error for entire API 1`] = `
+Object {
+  "body": "{\\"data\\":{\\"foos\\":null},\\"errors\\":[{\\"message\\":\\"Forbidden\\",\\"locations\\":[{\\"line\\":1,\\"column\\":3}],\\"path\\":[\\"foos\\"]}]}",
+  "headers": Object {
+    "Access-Control-Allow-Origin": "*",
+    "Content-Type": "application/json",
+  },
+  "statusCode": 200,
+}
+`;
