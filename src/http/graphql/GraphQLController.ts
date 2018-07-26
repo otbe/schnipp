@@ -3,9 +3,16 @@ import {
   APIGatewayProxyEvent,
   Context,
   APIGatewayProxyResult,
-  APIGatewayEvent
+  APIGatewayEvent,
+  Handler
 } from 'aws-lambda';
-import { graphqlLambda } from 'apollo-server-lambda';
+import {
+  ApolloServer,
+  CreateHandlerOptions,
+  ForbiddenError,
+  ApolloError,
+  Config
+} from 'apollo-server-lambda';
 import {
   APIGatewayHandler,
   Guard,
@@ -13,11 +20,7 @@ import {
   DecoratedExceptionFilter,
   ExceptionFilter
 } from '..';
-import {
-  IResolverObject,
-  makeExecutableSchema,
-  SchemaDirectiveVisitor
-} from 'graphql-tools';
+import { IResolverObject } from 'graphql-tools';
 import { readFile } from 'fs';
 import { flatten } from 'lodash';
 import { DefaultExecutionContext } from '../utils/ExecutionContext';
@@ -25,12 +28,16 @@ import {
   getControllerMetaData,
   GraphQLControllerData
 } from '../decorators/getControllerMetaData';
-import { GraphQLError } from 'graphql';
 import { ResolverMethodMeta } from './decorators/method';
 
 const { mergeTypes } = require('merge-graphql-schemas');
 
 export abstract class GraphQLController implements APIGatewayHandler {
+  private handler: Handler<
+    APIGatewayEvent,
+    APIGatewayProxyResult
+  > | null = null;
+
   private controllerData = getControllerMetaData(this
     .constructor as any) as GraphQLControllerData;
 
@@ -42,18 +49,18 @@ export abstract class GraphQLController implements APIGatewayHandler {
     event: APIGatewayProxyEvent,
     lambdaContext: Context
   ): Promise<APIGatewayProxyResult> {
-    const schema = await this._createSchema();
-    const context = await this.createExecutionContext(event, lambdaContext);
-
-    const handler = graphqlLambda({
-      schema,
-      context
-    });
+    if (this.handler == null) {
+      this.handler = await this.createHandler();
+    }
 
     return await new Promise<APIGatewayProxyResult>((resolve, reject) => {
-      handler(event, lambdaContext, (err, output) => {
-        if (err) {
+      this.handler!(event, lambdaContext, (err, output) => {
+        if (err != null) {
           return reject(err);
+        }
+
+        if (output == null) {
+          return reject();
         }
 
         const headers = this.controllerData.headers || {};
@@ -64,7 +71,7 @@ export abstract class GraphQLController implements APIGatewayHandler {
     });
   }
 
-  private async _createSchema() {
+  private async createHandler() {
     const resolver = this.controllerData.resolver;
     if (resolver == null) {
       throw 'no resolver found';
@@ -98,11 +105,20 @@ export abstract class GraphQLController implements APIGatewayHandler {
       {} as { [typeName: string]: IResolverObject }
     );
 
-    return makeExecutableSchema({
+    const server = new ApolloServer({
+      ...this.getApolloServerOptions(),
       typeDefs,
       resolvers,
-      schemaDirectives: this.getSchemaDirectives()
+      context: ({
+        event,
+        context
+      }: {
+        event: APIGatewayEvent;
+        context: Context;
+      }) => this.createExecutionContext(event, context)
     });
+
+    return server.createHandler(this.getHandlerOptions());
   }
 
   private createResolver(resolverMeta: ResolverMethodMeta<any>) {
@@ -146,11 +162,11 @@ export abstract class GraphQLController implements APIGatewayHandler {
           throw mappedExceptionResponse;
         }
 
-        if (exception instanceof GraphQLError) {
+        if (exception instanceof ApolloError) {
           throw exception;
         }
 
-        throw new GraphQLError('Internal Server Error');
+        throw new ApolloError('Internal Server Error');
       }
     };
   }
@@ -174,7 +190,7 @@ export abstract class GraphQLController implements APIGatewayHandler {
     );
 
     return (await filter.catch(e, executionContext, metaData)) as
-      | GraphQLError
+      | ApolloError
       | undefined;
   }
 
@@ -192,7 +208,7 @@ export abstract class GraphQLController implements APIGatewayHandler {
     )).every(Boolean);
 
     if (!canActivate) {
-      throw new GraphQLError('Forbidden');
+      throw new ForbiddenError('Forbidden');
     }
   }
 
@@ -203,9 +219,11 @@ export abstract class GraphQLController implements APIGatewayHandler {
     return { authorizer: event.requestContext.authorizer };
   }
 
-  getSchemaDirectives(): {
-    [name: string]: typeof SchemaDirectiveVisitor;
-  } {
+  getApolloServerOptions(): Config {
     return {};
+  }
+
+  getHandlerOptions(): CreateHandlerOptions | undefined {
+    return;
   }
 }

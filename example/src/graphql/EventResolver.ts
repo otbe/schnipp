@@ -10,8 +10,7 @@ import { DataMapper } from '@aws/dynamodb-data-mapper';
 import { Event } from '../models/Event';
 import { RolesGuard } from '../guards/RolesGuard';
 import { GraphqlController } from './GraphqlController';
-import { ItemNotFoundExceptionFilter } from '../rest/ItemNotFoundExceptionFilter';
-import { ItemNotFoundExceptionFilter2 } from './ItemNotFoundExceptionFilter';
+import { ItemNotFoundExceptionFilter2 } from './ItemNotFoundExceptionFilter2';
 import { RolesAllowed } from './RolesAllowed';
 
 @Resolver(GraphqlController)

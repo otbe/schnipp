@@ -2,9 +2,9 @@ import { APIGatewayProxyResult } from 'aws-lambda';
 import { MetaData } from './MetaData';
 import { Newable } from 'simple-ts-di';
 import { DefaultExecutionContext } from './ExecutionContext';
-import { GraphQLError } from 'graphql';
+import { ApolloError } from 'apollo-server-core';
 
-export type ExceptionFilterResponse = APIGatewayProxyResult | GraphQLError;
+export type ExceptionFilterResponse = APIGatewayProxyResult | ApolloError;
 
 export interface ExceptionFilter {
   catch<Context = DefaultExecutionContext>(

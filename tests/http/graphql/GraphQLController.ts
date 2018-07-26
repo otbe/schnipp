@@ -13,10 +13,11 @@ import { inject, Module, Bind, Container } from 'simple-ts-di';
 import { join } from 'path';
 import { HttpVerb, Guard, ExceptionFilter, Catch } from '../../../src/http';
 import { HttpException } from '../../../src/http/rest';
-import { GraphQLError } from 'graphql';
+import { ApolloError } from 'apollo-server-core';
 
 describe('GraphQLController.ts', () => {
   const context: any = {};
+  const executionContext = { foo: 5 };
   const queryHandle = jest.fn();
   const fieldHandle = jest.fn();
   const fieldHandle2 = jest.fn();
@@ -59,7 +60,7 @@ describe('GraphQLController.ts', () => {
   @Use(TestGuard, TestFilter)
   class Test extends GraphQLController {
     async createExecutionContext() {
-      return 5;
+      return executionContext;
     }
   }
 
@@ -101,8 +102,8 @@ describe('GraphQLController.ts', () => {
   beforeEach(() => {
     queryHandle.mockClear();
     queryHandle.mockResolvedValue([{ id: 1, name: 'foo' }]);
-    fieldHandle.mockClear();
-    fieldHandle2.mockClear();
+    fieldHandle.mockReset();
+    fieldHandle2.mockReset();
     filterHandle.mockReset();
     filterHandle2.mockReset();
     guardHandle.mockReset();
@@ -116,8 +117,13 @@ describe('GraphQLController.ts', () => {
     const h = await c.get(Test);
     const res = await h.handle(routeFor(query()), context);
 
-    expect(guardHandle).toHaveBeenCalledWith(5, { foo: 'bar' });
-    expect(queryHandle).toHaveBeenCalledWith(5);
+    expect(guardHandle).toHaveBeenCalledWith(
+      expect.objectContaining(executionContext),
+      { foo: 'bar' }
+    );
+    expect(queryHandle).toHaveBeenCalledWith(
+      expect.objectContaining(executionContext)
+    );
     expect(fieldHandle).toHaveBeenCalled();
     expect(fieldHandle2).toHaveBeenCalled();
     expect(res).toMatchSnapshot();
@@ -141,7 +147,10 @@ describe('GraphQLController.ts', () => {
     const h = await c.get(Test);
     const res = await h.handle(routeFor(query()), context);
 
-    expect(guardHandle2).toHaveBeenCalledWith(5, { bar: 'baz', foo: 'bar' });
+    expect(guardHandle2).toHaveBeenCalledWith(
+      expect.objectContaining(executionContext),
+      { bar: 'baz', foo: 'bar' }
+    );
     expect(queryHandle).toHaveBeenCalled();
     expect(fieldHandle).toHaveBeenCalled();
     expect(fieldHandle2).not.toHaveBeenCalled();
@@ -149,7 +158,7 @@ describe('GraphQLController.ts', () => {
   });
 
   it('should pass custom graphql errors to the client ', async () => {
-    queryHandle.mockRejectedValueOnce(new GraphQLError('foo'));
+    queryHandle.mockRejectedValueOnce(new ApolloError('foo', 'FOO'));
     const c = new Container(new MyModule());
     const h = await c.get(Test);
     const res = await h.handle(routeFor(query()), context);
@@ -171,15 +180,19 @@ describe('GraphQLController.ts', () => {
   });
 
   it('should filter errors from controller on root types', async () => {
-    filterHandle.mockResolvedValue(new GraphQLError('bar'));
+    filterHandle.mockResolvedValue(new ApolloError('bar', 'BAR'));
     queryHandle.mockRejectedValue(new HttpException(400));
     const c = new Container(new MyModule());
     const h = await c.get(Test);
     const res = await h.handle(routeFor(query()), context);
 
-    expect(filterHandle).toHaveBeenCalledWith(expect.any(HttpException), 5, {
-      foo: 'bar'
-    });
+    expect(filterHandle).toHaveBeenCalledWith(
+      expect.any(HttpException),
+      expect.objectContaining(executionContext),
+      {
+        foo: 'bar'
+      }
+    );
     expect(queryHandle).toHaveBeenCalled();
     expect(fieldHandle).not.toHaveBeenCalled();
     expect(fieldHandle2).not.toHaveBeenCalled();
@@ -187,7 +200,7 @@ describe('GraphQLController.ts', () => {
   });
 
   it('should filter errors from controller on abritrary types', async () => {
-    filterHandle.mockResolvedValue(new GraphQLError('bar'));
+    filterHandle.mockResolvedValue(new ApolloError('bar'));
     fieldHandle.mockRejectedValue(new HttpException(400));
     const c = new Container(new MyModule());
     const h = await c.get(Test);
@@ -200,16 +213,20 @@ describe('GraphQLController.ts', () => {
   });
 
   it('should filter errors from method', async () => {
-    filterHandle2.mockResolvedValue(new GraphQLError('bar'));
+    filterHandle2.mockResolvedValue(new ApolloError('bar'));
     fieldHandle2.mockRejectedValue(new HttpException(400));
     const c = new Container(new MyModule());
     const h = await c.get(Test);
     const res = await h.handle(routeFor(query()), context);
 
-    expect(filterHandle2).toHaveBeenCalledWith(expect.any(HttpException), 5, {
-      bar: 'baz',
-      foo: 'bar'
-    });
+    expect(filterHandle2).toHaveBeenCalledWith(
+      expect.any(HttpException),
+      expect.objectContaining(executionContext),
+      {
+        bar: 'baz',
+        foo: 'bar'
+      }
+    );
     expect(queryHandle).toHaveBeenCalled();
     expect(fieldHandle).toHaveBeenCalled();
     expect(fieldHandle2).toHaveBeenCalled();

@@ -10,7 +10,7 @@ import { RestAuthorizer } from './rest/RestAuthorizer';
 import { GraphqlAuthorizer } from './graphql/GraphqlAuthorizer';
 import { GraphqlController } from './graphql/GraphqlController';
 import { EventsController } from './rest/EventsController';
-import { ItemNotFoundExceptionFilter2 } from './graphql/ItemNotFoundExceptionFilter';
+import { ItemNotFoundExceptionFilter2 } from './graphql/ItemNotFoundExceptionFilter2';
 
 class MyModule implements Module {
   init(bind: Bind) {

@@ -10,7 +10,8 @@ module.exports = {
   }, {}),
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+    mainFields: ['main']
   },
   output: {
     libraryTarget: 'commonjs',
