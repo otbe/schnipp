@@ -1,8 +1,7 @@
 {
-  "name": "aws-nodejs-typescript",
+  "name": "example",
   "version": "1.0.0",
-  "description": "Serverless webpack example using Typescript",
-  "main": "handler.js",
+  "private": true,
   "scripts": {
     "start": "env-cmd .local.env sls offline start",
     "format": "prettier --write \"src/**/*.ts\""
@@ -12,7 +11,6 @@
     "@aws/dynamodb-data-mapper-annotations": "^0.6.1",
     "merge-graphql-schemas": "^1.5.2",
     "reflect-metadata": "^0.1.12",
-    "source-map-support": "^0.5.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
@@ -30,7 +28,5 @@
     "typescript": "^2.5.2",
     "webpack": "^4.14.0",
     "webpack-node-externals": "^1.7.2"
-  },
-  "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
-  "license": "MIT"
+  }
 }
