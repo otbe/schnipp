@@ -17,8 +17,8 @@ export const Resolver = <T extends GraphQLController>(
   ) as GraphQLControllerData;
   const resolverMeta = getResolverMetaData(resolver);
 
-  controllerMeta.resolver = controllerMeta.resolver || [];
-  controllerMeta.resolver.push(resolverMeta);
+  controllerMeta.resolvers = controllerMeta.resolvers || [];
+  controllerMeta.resolvers.push(resolverMeta);
 };
 
 export const getResolverMetaData = (resolver: any) => {

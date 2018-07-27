@@ -10,10 +10,20 @@ import {
   Meta
 } from '../../../src/http/graphql';
 import { inject, Module, Bind, Container } from 'simple-ts-di';
-import { join } from 'path';
 import { HttpVerb, Guard, ExceptionFilter, Catch } from '../../../src/http';
 import { HttpException } from '../../../src/http/rest';
-import { ApolloError } from 'apollo-server-core';
+import { ApolloError, gql } from 'apollo-server-core';
+
+const schema = gql`
+  type Foo {
+    id: ID!
+    name: String
+  }
+
+  type Query {
+    foos: [Foo]
+  }
+`;
 
 describe('GraphQLController.ts', () => {
   const context: any = {};
@@ -65,7 +75,7 @@ describe('GraphQLController.ts', () => {
   }
 
   @Resolver(Test)
-  @Schema(join(__dirname, 'foos.gql'))
+  @Schema(schema)
   class TestResolver {
     @Query('foos')
     foo(_, args, context) {

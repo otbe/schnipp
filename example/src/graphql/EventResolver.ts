@@ -1,20 +1,20 @@
+import { DataMapper } from '@aws/dynamodb-data-mapper';
 import {
-  Schema,
-  Resolver,
   Query,
   ResolveField,
-  Use
+  Resolver,
+  Schema,
+  Use,
+  Meta
 } from '../../../dist/http/graphql';
-import { join } from 'path';
-import { DataMapper } from '@aws/dynamodb-data-mapper';
 import { Event } from '../models/Event';
-import { RolesGuard } from '../guards/RolesGuard';
 import { GraphqlController } from './GraphqlController';
 import { ItemNotFoundExceptionFilter2 } from './ItemNotFoundExceptionFilter2';
 import { RolesAllowed } from './RolesAllowed';
+import events from './gql/events.gql';
 
 @Resolver(GraphqlController)
-@Schema(join(__dirname, './graphql/events.gql'))
+@Schema(events)
 export class EventResolver {
   constructor(private readonly mapper: DataMapper) {}
 
@@ -25,8 +25,9 @@ export class EventResolver {
 
   @Query('event')
   @RolesAllowed('admin')
+  @Meta('foo', 'bar')
   @Use(ItemNotFoundExceptionFilter2)
-  async event(_, args, context) {
+  async event(_, args, context, info) {
     return await this.mapper.get(Event.of(args.id));
   }
 
@@ -36,7 +37,6 @@ export class EventResolver {
   }
 
   @ResolveField('Event', 'name')
-  @Use(RolesGuard)
   @RolesAllowed('admin')
   name(event: Event, args, context, info) {
     return event.name;

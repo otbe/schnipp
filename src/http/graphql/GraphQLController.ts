@@ -11,7 +11,8 @@ import {
   CreateHandlerOptions,
   ForbiddenError,
   ApolloError,
-  Config
+  Config,
+  IResolverObject
 } from 'apollo-server-lambda';
 import {
   APIGatewayHandler,
@@ -20,9 +21,6 @@ import {
   DecoratedExceptionFilter,
   ExceptionFilter
 } from '..';
-import { IResolverObject } from 'graphql-tools';
-import { readFile } from 'fs';
-import { flatten } from 'lodash';
 import { DefaultExecutionContext } from '../utils/ExecutionContext';
 import {
   getControllerMetaData,
@@ -72,22 +70,12 @@ export abstract class GraphQLController implements APIGatewayHandler {
   }
 
   private async createHandler() {
-    const resolver = this.controllerData.resolver;
+    const resolver = this.controllerData.resolvers;
     if (resolver == null) {
       throw 'no resolver found';
     }
 
-    const typesArray = await Promise.all(
-      flatten(resolver.map(x => x.schemaPath).filter(Boolean) as Array<
-        Array<string>
-      >).map(
-        x =>
-          new Promise(resolve =>
-            readFile(x, (err, res) => resolve(res.toString()))
-          )
-      )
-    );
-
+    const typesArray = resolver.map(x => x.document).filter(Boolean);
     const typeDefs = mergeTypes(typesArray, { all: true });
 
     const resolvers = resolver.reduce(

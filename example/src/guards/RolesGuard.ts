@@ -5,7 +5,6 @@ import { DefaultExecutionContext } from '../../../dist/http/utils/ExecutionConte
 @inject()
 export class RolesGuard implements Guard {
   canActivate(executionContext: DefaultExecutionContext, metaData: MetaData) {
-    console.log(executionContext, metaData);
     if (metaData.roles) {
       return executionContext
         .authorizer!.roles.split(',')

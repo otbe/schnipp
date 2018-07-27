@@ -13,7 +13,7 @@ Object {
   ],
   "headers": Object {},
   "metaData": Object {},
-  "resolver": Array [
+  "resolvers": Array [
     Object {
       "resolverMap": Object {
         "Query": Object {

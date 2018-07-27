@@ -1,6 +1,7 @@
 import { getResolverMetaData } from './resolver';
 import { Newable } from 'simple-ts-di';
 import { DecoratedExceptionFilter, Guard, MetaData } from '../..';
+import { DocumentNode } from 'graphql';
 
 export const METHOD = Symbol('method');
 
@@ -9,7 +10,7 @@ export type Fields = {
 };
 
 export type ResolverMeta = {
-  schemaPath?: Array<string>;
+  document?: DocumentNode;
   resolverMap: { [typeName: string]: Fields };
 };
 

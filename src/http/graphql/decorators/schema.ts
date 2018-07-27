@@ -1,9 +1,10 @@
 import { getResolverMetaData } from './resolver';
+import { DocumentNode } from 'graphql';
 
-export const Schema = (...path: Array<string>): ClassDecorator => (
+export const Schema = (document: DocumentNode): ClassDecorator => (
   resolver: any
 ) => {
   const resolverMeta = getResolverMetaData(resolver);
 
-  resolverMeta.schemaPath = path;
+  resolverMeta.document = document;
 };

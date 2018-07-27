@@ -14,7 +14,7 @@ export type ControllerBaseData = {
 };
 
 export type GraphQLControllerData = ControllerBaseData & {
-  resolver?: Array<ResolverMeta>;
+  resolvers?: Array<ResolverMeta>;
 };
 
 export type RestControllerData = ControllerBaseData & {
