@@ -81,9 +81,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
 
-"@types/aws-lambda@^8.10.7":
-  version "8.10.7"
-  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.7.tgz#1dfd0e1918205f74169658ad8aa8f9c06f161909"
+"@types/aws-lambda@^8.10.8":
+  version "8.10.8"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.8.tgz#b53dc0c7762501ce2fbd045ebd0fa4f40a87b0af"
 
 "@types/events@*":
   version "1.2.0"

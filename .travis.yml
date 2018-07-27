@@ -1,24 +1,24 @@
 language: node_js
 node_js:
-  - '8.10'
+- '8.10'
 
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
 
 script: yarn test:ci
 
 before_deploy:
-  - yarn build
-  - cd dist
+- yarn build
+- cd dist
 
 deploy:
   provider: npm
   email: benjamin.otto@style-systems.de
   skip_cleanup: true
   api_key:
-    secure: r32XVzXT2d/FMhN0QAroPY/VvxufMtgqCcuPs09Kzd5I7xXAKxBzQnqzgiDEU3Xy/qS1AC855qOMRgIca1rC0zRh4AQ6KlrogXsMDPAlRtOuzjsVpsjUCEKlvYaeJ7/RyqFVWWo4OvUhu1OZDKyOSFCQojQccbxBadoJSl4ZUxfa0/wA5o/qNk2vP+TWUvp0NmkgpneK6v+gIWgpgcEM94K8jZ5TbcFg9wTywjkZyYhA+5Ah4Wefrcq3IbfYBcee0a6pUL2OkYfO7xXrOoMLp4L2IGgR0Bbr49j9Decu8JzHNJagbeyx8EesziK8PVau6lFkN8bdbqMxMpAG58g6yaidOefnN5jlMxEqSUuuJvKYL98UPPyvQVAM42zX+DipYuddmN5Xlvh80P6HhwK4PgyjhvBzllJ8SHKwO/WCeFDBeVW/FhsrNsMRGtL62AdWBYsiBGy10wUVDgw5JX2/U5V9V4uN0JY9vNqZQLIIxAxrDrUplagnwXtiASAubcbIjgaYxbY6zvq95T8MpxpV75Q3G0X3d1ly0diAPc1Hd0Tc67LLKFBiaCGpEwyl2cIf97xKLFCk87X2OFG9PdeJA+A86andiRKfIxfgGRSpsoE7C056PFTqA2JynrE7v7Sl2gWtk5aoMiLPbnr+H9qNiMfG4hAnK/hI6RA0rCCLD2A=
+    secure: XHoLdPdeMvINWjRpeKNeiGbG8okbL+d5sCZj0lATuGZQuRvhuMHRftyjRFhwgj24ZKXuMce0sp6GZifymCIJxxNCJfFsmiTwmFqjygveLDU1WOx4eUq/T8bnTKHC0iyDC4QuJ7gSNcMrstSC+QnXu1qDI5b2+nSZ1vEf4XLaGqJ0WsjRcVXroMy0EJKRSHd3MkPlQvxcrh6wNDdlHOuQNycN++cHH4LlAR/kgTD8hwqzP/IyHSkRAI33BkasPVR1PBDQsrlSIrY2LStDwPJrYBTBL/aKcZjA4NEyZDoa3qANNlLez+wUz0Cf04hR1y8HYbiS917PjLriJnXFB0aJniBkOEjf/xyFR2uFc1EkQeUOA0ujNIee7s3K0jkyaFgPer6P2os1SbLS2mQIcHgv0njcddceMAM8sSeVYzOzzsfagVmkK053x4dHsmXtSFdcCdVNWXxFFihbHXAQDSLZY/pFRLcRnRh6BNvIXVuJIBiakoEE8UkJbMXVBvyPuKt5K5MGA/TLg0AIM44AE5s2yzLRw8DWdgFvKw8AT3PIL4Ebrt1xWFX1JwgebNNR7aqxzCicZj+ivmsH9gX6jMKRjR8fVEGYfdvzSfWeEeIbzB0YM1Ea/CgaClic8ttHFI/YqKb5Ga2VCY72z2/1UbwnAdMXU7Qnuw49giLoYyulS6M=
   on:
     tags: true
     repo: otbe/schnipp
