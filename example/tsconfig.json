@@ -14,5 +14,5 @@
     ],
     "types": ["reflect-metadata", "node"],
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "typings/custom.d.ts"]
 }
