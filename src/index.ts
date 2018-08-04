@@ -9,6 +9,8 @@ export const createHandler = <E, R>(
   container: Container,
   handler: Identifier<IHandler<E, R>>
 ): Handler<E, R> => async (event: E, context: Context) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+
   const handlerInstance = await container.get(handler);
   return await handlerInstance.handle(event, context);
 };
