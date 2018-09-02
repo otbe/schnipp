@@ -1,33 +1,33 @@
-import { CONTAINER_INSTANCE_PROP, Container, Newable } from 'simple-ts-di';
 import {
-  APIGatewayProxyEvent,
-  Context,
-  APIGatewayProxyResult,
-  APIGatewayEvent,
-  Handler
-} from 'aws-lambda';
-import {
+  ApolloError,
   ApolloServer,
+  Config,
   CreateHandlerOptions,
   ForbiddenError,
-  ApolloError,
-  Config,
   IResolverObject
 } from 'apollo-server-lambda';
 import {
+  APIGatewayEvent,
+  APIGatewayProxyEvent,
+  APIGatewayProxyResult,
+  Context,
+  Handler
+} from 'aws-lambda';
+import { GraphQLScalarType } from 'graphql';
+import { Container, CONTAINER_INSTANCE_PROP, Newable } from 'simple-ts-di';
+import {
   APIGatewayHandler,
-  Guard,
-  MetaData,
   DecoratedExceptionFilter,
-  ExceptionFilter
+  ExceptionFilter,
+  Guard,
+  MetaData
 } from '..';
-import { DefaultExecutionContext } from '../utils/ExecutionContext';
 import {
   getControllerMetaData,
   GraphQLControllerData
 } from '../decorators/getControllerMetaData';
+import { DefaultExecutionContext } from '../utils/ExecutionContext';
 import { ResolverMethodMeta } from './decorators/method';
-import { GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 
 const { mergeTypes } = require('merge-graphql-schemas');
 
