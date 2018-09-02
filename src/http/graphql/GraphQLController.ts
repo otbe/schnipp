@@ -27,6 +27,7 @@ import {
   GraphQLControllerData
 } from '../decorators/getControllerMetaData';
 import { ResolverMethodMeta } from './decorators/method';
+import { GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 
 const { mergeTypes } = require('merge-graphql-schemas');
 
@@ -96,7 +97,7 @@ export abstract class GraphQLController implements APIGatewayHandler {
     const server = new ApolloServer({
       ...this.getApolloServerOptions(),
       typeDefs,
-      resolvers,
+      resolvers: { ...resolvers, ...this.getGraphQLScalars() },
       context: ({
         event,
         context
@@ -213,5 +214,9 @@ export abstract class GraphQLController implements APIGatewayHandler {
 
   getHandlerOptions(): CreateHandlerOptions | undefined {
     return;
+  }
+
+  getGraphQLScalars(): { [name: string]: GraphQLScalarType } {
+    return {};
   }
 }
