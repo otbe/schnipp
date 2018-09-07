@@ -33,28 +33,28 @@
     "copy-release-files": "cp package.json dist/package.json && cp README.md dist/README.md"
   },
   "dependencies": {
-    "@types/aws-lambda": "^8.10.8",
-    "@types/graphql": "^0.13.3",
-    "@types/node": "^8.10",
+    "@types/aws-lambda": "^8.10.11",
+    "@types/graphql": "^0.13.3 || ^14.0.0",
+    "@types/node": "^10.9.4",
     "@types/url-join": "^0.8.2",
-    "apollo-server-lambda": "^2.0.0",
-    "graphql": "^0.13.2",
+    "apollo-server-lambda": "^2.0.6",
+    "graphql": "^14.0.2",
     "merge-graphql-schemas": "^1.5.3",
-    "simple-ts-di": "^3.1.0",
+    "simple-ts-di": "^3.2.3",
     "url-join": "^4.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^23.1.4",
-    "aws-sdk": "^2.270.1",
+    "@types/jest": "^23.3.1",
+    "aws-sdk": "^2.310.0",
     "coveralls": "^3.0.2",
     "env-cmd": "^8.0.2",
-    "jest": "^23.3.0",
-    "prettier": "^1.13.7",
+    "jest": "^23.5.0",
+    "prettier": "^1.14.2",
     "prettier-tslint": "^0.4.0",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
-    "ts-jest": "^23.0.0",
-    "typescript": "^2.9.2"
+    "ts-jest": "^23.1.4",
+    "typescript": "^3.0.3"
   },
   "peerDependencies": {
     "reflect-metadata": "^0.1.12"

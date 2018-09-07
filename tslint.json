@@ -8,7 +8,7 @@
     "no-duplicate-variable": true,
     "no-inferrable-types": [true, "ignore-params"],
     "no-internal-module": true,
-    "no-misused-new": true,
+    "no-misused-new": false,
     "no-reference": true,
     "no-var-keyword": true,
     "no-unused-expression": true,
