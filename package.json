@@ -33,13 +33,13 @@
     "copy-release-files": "cp package.json dist/package.json && cp README.md dist/README.md"
   },
   "dependencies": {
-    "@types/aws-lambda": "^8.10.11",
+    "@types/aws-lambda": "^8.10.13",
     "@types/graphql": "^14.0.0",
-    "@types/node": "^10.9.4",
+    "@types/node": "^10.11.4",
     "@types/url-join": "^0.8.2",
-    "apollo-server-lambda": "^2.0.6",
+    "apollo-server-lambda": "^2.1.0",
     "graphql": "^14.0.2",
-    "merge-graphql-schemas": "^1.5.3",
+    "merge-graphql-schemas": "^1.5.7",
     "simple-ts-di": "^3.2.3",
     "url-join": "^4.0.0"
   },
