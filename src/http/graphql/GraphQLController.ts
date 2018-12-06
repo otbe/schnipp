@@ -29,8 +29,6 @@ import {
 import { DefaultExecutionContext } from '../utils/ExecutionContext';
 import { ResolverMethodMeta } from './decorators/method';
 
-const { mergeTypes } = require('merge-graphql-schemas');
-
 export abstract class GraphQLController implements APIGatewayHandler {
   private handler: Handler<
     APIGatewayEvent,
@@ -76,9 +74,6 @@ export abstract class GraphQLController implements APIGatewayHandler {
       throw 'no resolver found';
     }
 
-    const typesArray = resolver.map(x => x.document).filter(Boolean);
-    const typeDefs = mergeTypes(typesArray, { all: true });
-
     const resolvers = resolver.reduce(
       (acc, curr) => {
         Object.keys(curr.resolverMap).forEach(typeName => {
@@ -96,7 +91,6 @@ export abstract class GraphQLController implements APIGatewayHandler {
 
     const server = new ApolloServer({
       ...this.getApolloServerOptions(),
-      typeDefs,
       resolvers: { ...resolvers, ...this.getGraphQLScalars() },
       context: ({
         event,

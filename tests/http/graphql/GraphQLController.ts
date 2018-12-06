@@ -4,7 +4,6 @@ import {
   Resolver,
   Query,
   ResolveField,
-  Schema,
   Use,
   Header,
   Meta
@@ -69,13 +68,16 @@ describe('GraphQLController.ts', () => {
   @Meta('foo', 'bar')
   @Use(TestGuard, TestFilter)
   class Test extends GraphQLController {
+    getApolloServerOptions() {
+      return { typeDefs: schema };
+    }
+
     async createExecutionContext() {
       return executionContext;
     }
   }
 
   @Resolver(Test)
-  @Schema(schema)
   class TestResolver {
     @Query('foos')
     foo(_, args, context) {

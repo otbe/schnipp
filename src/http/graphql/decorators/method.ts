@@ -10,7 +10,6 @@ export type Fields = {
 };
 
 export type ResolverMeta = {
-  document?: DocumentNode;
   resolverMap: { [typeName: string]: Fields };
 };
 

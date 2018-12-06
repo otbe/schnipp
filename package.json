@@ -39,7 +39,6 @@
     "@types/url-join": "^0.8.2",
     "apollo-server-lambda": "^2.1.0",
     "graphql": "^14.0.2",
-    "merge-graphql-schemas": "^1.5.7",
     "simple-ts-di": "^3.2.3",
     "url-join": "^4.0.0"
   },

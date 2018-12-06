@@ -2,7 +2,6 @@ export { GraphQLController } from './GraphQLController';
 export { Query } from './decorators/query';
 export { Mutation } from './decorators/mutation';
 export { Resolver } from './decorators/resolver';
-export { Schema } from './decorators/schema';
 export { ResolveField } from './decorators/resolveField';
 export { ResolveType } from './decorators/resolveType';
 export { Header } from './decorators/header';

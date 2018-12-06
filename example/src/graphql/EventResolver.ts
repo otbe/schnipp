@@ -3,7 +3,6 @@ import {
   Query,
   ResolveField,
   Resolver,
-  Schema,
   Use,
   Meta
 } from '../../../dist/http/graphql';
@@ -11,10 +10,8 @@ import { Event } from '../models/Event';
 import { GraphqlController } from './GraphqlController';
 import { ItemNotFoundExceptionFilter2 } from './ItemNotFoundExceptionFilter2';
 import { RolesAllowed } from './RolesAllowed';
-import events from './gql/events.gql';
 
 @Resolver(GraphqlController)
-@Schema(events)
 export class EventResolver {
   constructor(private readonly mapper: DataMapper) {}
 
