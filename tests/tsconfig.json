@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
-      "target": "es5",
+      "target": "es6",
+      "moduleResolution": "node",
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
       "allowSyntheticDefaultImports": true,

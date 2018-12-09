@@ -13,28 +13,6 @@ Object {
   ],
   "headers": Object {},
   "metaData": Object {},
-  "resolvers": Array [
-    Object {
-      "resolverMap": Object {
-        "Query": Object {
-          "foo": Object {
-            "clazz": [Function],
-            "filters": Array [
-              Object {
-                "exceptions": Array [],
-                "filter": [Function],
-              },
-            ],
-            "guards": Array [
-              [Function],
-            ],
-            "metaData": Object {},
-            "methodName": "foo",
-          },
-        },
-      },
-    },
-  ],
 }
 `;
 

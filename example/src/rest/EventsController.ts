@@ -15,7 +15,9 @@ import { Event } from '../models/Event';
 import { v4 as uuid } from 'uuid';
 import { ItemNotFoundExceptionFilter } from './ItemNotFoundExceptionFilter';
 import { RolesAllowed } from './RolesAllowed';
+import { Service } from 'typedi';
 
+@Service()
 @Path('/events')
 @Use(RolesGuard)
 @Meta('foo', 'bar')

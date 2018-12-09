@@ -1,37 +1,21 @@
-import 'reflect-metadata';
-import { Module, Bind, Container } from 'simple-ts-di';
-import { RolesGuard } from './guards/RolesGuard';
 import { DataMapper } from '@aws/dynamodb-data-mapper';
-import { createMapper } from './providers/createMapper';
-import { createHandler } from '../../dist';
-import { EventResolver } from './graphql/EventResolver';
-import { ItemNotFoundExceptionFilter } from './rest/ItemNotFoundExceptionFilter';
-import { RestAuthorizer } from './rest/RestAuthorizer';
+import 'reflect-metadata';
+import Container from 'typedi';
+import { createHandler, useContainer } from '../../dist';
 import { GraphqlAuthorizer } from './graphql/GraphqlAuthorizer';
 import { GraphqlController } from './graphql/GraphqlController';
+import { createMapper } from './providers/createMapper';
 import { EventsController } from './rest/EventsController';
-import { ItemNotFoundExceptionFilter2 } from './graphql/ItemNotFoundExceptionFilter2';
+import { RestAuthorizer } from './rest/RestAuthorizer';
 
-class MyModule implements Module {
-  init(bind: Bind) {
-    bind(GraphqlController);
-    bind(EventsController);
-    bind(EventResolver);
-    bind(ItemNotFoundExceptionFilter);
-    bind(ItemNotFoundExceptionFilter2);
-    bind(RolesGuard);
-    bind(RestAuthorizer);
-    bind(GraphqlAuthorizer);
-    bind(DataMapper).toFactory(createMapper);
-  }
-}
+useContainer(Container);
 
-const c = new Container(new MyModule());
+Container.set(DataMapper, createMapper());
 
-export const handle = createHandler(c, EventsController);
+export const handle = createHandler(EventsController);
 
-export const authorize = createHandler(c, RestAuthorizer);
+export const authorize = createHandler(RestAuthorizer);
 
-export const authorize2 = createHandler(c, GraphqlAuthorizer);
+export const authorize2 = createHandler(GraphqlAuthorizer);
 
-export const handle2 = createHandler(c, GraphqlController);
+export const handle2 = createHandler(GraphqlController);

@@ -1,4 +1,3 @@
-import { Newable } from 'simple-ts-di';
 import { Guard, ExceptionFilter } from '../..';
 import {
   ControllerData,
@@ -9,10 +8,11 @@ import {
   getMethodMetaData,
   MethodMetaData
 } from '../factories/createHttpMethodDecorator';
+import { ContainedType } from '../../../container';
 
-export const Use = (...entities: Array<Newable<Guard | ExceptionFilter>>) => (
-  ...args: Array<any>
-) => {
+export const Use = (
+  ...entities: Array<ContainedType<Guard | ExceptionFilter>>
+) => (...args: Array<any>) => {
   const target = args[0];
 
   switch (args.length) {
@@ -35,16 +35,16 @@ export const Use = (...entities: Array<Newable<Guard | ExceptionFilter>>) => (
   }
 };
 
-const isGuard = (arg: any): arg is Newable<Guard> => {
+const isGuard = (arg: any): arg is ContainedType<Guard> => {
   return !!arg.prototype.canActivate;
 };
 
-const isExceptionFilter = (arg: any): arg is Newable<ExceptionFilter> => {
+const isExceptionFilter = (arg: any): arg is ContainedType<ExceptionFilter> => {
   return !!arg.prototype.catch;
 };
 
 function processArgs(
-  entities: Newable<Guard | ExceptionFilter>[],
+  entities: ContainedType<Guard | ExceptionFilter>[],
   controllerMetaData: ControllerData | MethodMetaData,
   target: any
 ) {
@@ -59,7 +59,7 @@ function processArgs(
 
 function addGuard(
   metaData: MethodMetaData | ControllerData,
-  guard: Newable<Guard>
+  guard: ContainedType<Guard>
 ) {
   metaData.guards.push(guard);
 }
@@ -67,7 +67,7 @@ function addGuard(
 function addExceptionFilter(
   metaData: MethodMetaData | ControllerData,
   target: any,
-  filter: Newable<ExceptionFilter>
+  filter: ContainedType<ExceptionFilter>
 ) {
   const exceptions = getCaughtExceptions(target.constructor);
   metaData.filters.push({

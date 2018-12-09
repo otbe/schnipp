@@ -1,6 +1,6 @@
-import { getResolverMetaData } from './resolver';
-import { Newable } from 'simple-ts-di';
 import { DecoratedExceptionFilter, Guard, MetaData } from '../..';
+import { getResolverMetaData } from './resolver';
+import { ContainedType } from '../../../container';
 
 export const METHOD = Symbol('method');
 
@@ -13,10 +13,10 @@ export type ResolverMeta = {
 };
 
 export type ResolverMethodMeta<T> = {
-  clazz?: Newable<T>;
+  clazz?: ContainedType<T>;
   methodName: string;
   filters: Array<DecoratedExceptionFilter>;
-  guards: Array<Newable<Guard>>;
+  guards: Array<ContainedType<Guard>>;
   metaData: MetaData;
 };
 
@@ -42,7 +42,7 @@ export const getMethodMetaData = (target: any, methodName: string) => {
 };
 
 export const createMethodDecorator = (typeName: string) => (
-  fieldName: string
+  fieldName?: string
 ): MethodDecorator => <T>(
   resolver: any,
   propertyKey: string | symbol,
@@ -54,7 +54,9 @@ export const createMethodDecorator = (typeName: string) => (
   const methodMetaData = getMethodMetaData(resolver, propertyKey.toString());
 
   methodMetaData.clazz = resolver.constructor;
-  resolverMeta.resolverMap[typeName][fieldName] = methodMetaData;
+  resolverMeta.resolverMap[typeName][
+    fieldName || propertyKey.toString()
+  ] = methodMetaData;
 
   return descriptor;
 };

@@ -1,36 +1,24 @@
 import { DataMapper } from '@aws/dynamodb-data-mapper';
-import {
-  Query,
-  ResolveField,
-  Resolver,
-  Use,
-  Meta
-} from '../../../dist/http/graphql';
+import { Service } from 'typedi';
+import { Meta, Query, ResolveField, Use } from '../../../dist/http/graphql';
 import { Event } from '../models/Event';
-import { GraphqlController } from './GraphqlController';
 import { ItemNotFoundExceptionFilter2 } from './ItemNotFoundExceptionFilter2';
 import { RolesAllowed } from './RolesAllowed';
 
-@Resolver(GraphqlController)
+@Service()
 export class EventResolver {
   constructor(private readonly mapper: DataMapper) {}
 
-  @Query('events')
+  @Query()
   async events(obj, args, context, info) {
     return this.toArray<Event>(await this.mapper.scan(Event));
   }
 
-  @Query('event')
-  @RolesAllowed('admin')
+  @Query()
   @Meta('foo', 'bar')
   @Use(ItemNotFoundExceptionFilter2)
   async event(_, args, context, info) {
     return await this.mapper.get(Event.of(args.id));
-  }
-
-  @ResolveField('Event', 'id')
-  async id(event: Event, args, context, info) {
-    return event.id + 1;
   }
 
   @ResolveField('Event', 'name')

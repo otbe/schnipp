@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 import { createHandler } from '../src';
 import { SNSEvent } from 'aws-lambda';
-import { Module, Bind, Container } from 'simple-ts-di';
 import { SNSHandler } from '../src/sns';
 
 describe('schnipp', () => {
@@ -13,14 +12,7 @@ describe('schnipp', () => {
       }
     }
 
-    class MyModule implements Module {
-      init(bind: Bind) {
-        bind(Test);
-      }
-    }
-
-    const c = new Container(new MyModule());
-    const handler = createHandler(c, Test);
+    const handler = createHandler(Test);
 
     await handler({} as any, {} as any, () => {});
 

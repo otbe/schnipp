@@ -1,4 +1,3 @@
-import { CONTAINER_INSTANCE_PROP, Container, Newable } from 'simple-ts-di';
 import {
   APIGatewayEvent,
   Context,
@@ -24,14 +23,11 @@ import {
   getControllerMetaData,
   RestControllerData
 } from '../decorators/getControllerMetaData';
+import { getFromContainer, ContainedType } from '../../container';
 
 export class RestController implements APIGatewayHandler {
   private controllerData = getControllerMetaData(this
     .constructor as any) as RestControllerData;
-
-  private get container() {
-    return (this as any)[CONTAINER_INSTANCE_PROP] as Container;
-  }
 
   async handle(
     event: APIGatewayProxyEvent,
@@ -125,9 +121,7 @@ export class RestController implements APIGatewayHandler {
         return;
       }
 
-      const filter = await this.container.get<ExceptionFilter>(
-        exceptionFilter.filter
-      );
+      const filter = getFromContainer<ExceptionFilter>(exceptionFilter.filter);
 
       return (await filter.catch(e, executionContext, metaData)) as
         | APIGatewayProxyResult
@@ -138,15 +132,13 @@ export class RestController implements APIGatewayHandler {
   }
 
   private async processGuards(
-    guards: Array<Newable<Guard>>,
+    guards: Array<ContainedType<Guard>>,
     executionContext: DefaultExecutionContext | any,
     metaData: MetaData
   ) {
     const canActivate = (await Promise.all(
       guards.map(guard =>
-        this.container
-          .get(guard)
-          .then(guard => guard.canActivate(executionContext, metaData))
+        getFromContainer(guard).canActivate(executionContext, metaData)
       )
     )).every(Boolean);
 

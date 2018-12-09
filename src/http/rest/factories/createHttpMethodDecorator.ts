@@ -1,11 +1,11 @@
 import * as urlJoin from 'url-join';
 import { APIGatewayEvent } from 'aws-lambda';
-import { Newable } from 'simple-ts-di';
 import { HttpVerb } from '../../utils/AuthPolicy';
 import { DecoratedExceptionFilter } from '../../utils/ExceptionFilter';
 import { Guard } from '../../utils/Guard';
 import { MetaData } from '../../utils/MetaData';
 import { DefaultExecutionContext } from '../../utils/ExecutionContext';
+import { ContainedType } from '../../../container';
 
 const METHODS = Symbol('methods');
 
@@ -30,7 +30,7 @@ export type MethodMetaData = {
   headers: { [key: string]: string };
   paramaters: Array<InjectedParam<any>>;
   filters: Array<DecoratedExceptionFilter>;
-  guards: Array<Newable<Guard>>;
+  guards: Array<ContainedType<Guard>>;
   metaData: MetaData;
 };
 

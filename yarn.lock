@@ -3749,11 +3749,6 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
-simple-ts-di@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.yarnpkg.com/simple-ts-di/-/simple-ts-di-3.2.3.tgz#354f57b9813845824e6963ec4b0a08222f9a0e01"
-  integrity sha512-UsnYWev0VhyCS62/JrSXpAEG3EXtW92xD64FKnxo9ZmNII3x33a1fN+elxZCOo+oTNMkITa2Xxa4kUxjP+xSrw==
-
 sisteransi@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-0.1.1.tgz#5431447d5f7d1675aac667ccd0b865a4994cb3ce"

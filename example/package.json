@@ -11,6 +11,7 @@
     "@aws/dynamodb-data-mapper-annotations": "^0.6.1",
     "merge-graphql-schemas": "^1.5.2",
     "reflect-metadata": "^0.1.12",
+    "typedi": "^0.8.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

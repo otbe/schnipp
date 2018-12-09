@@ -9,6 +9,10 @@ describe('@Meta', () => {
     class Test extends GraphQLController {
       @Meta('bar', 'baz')
       test() {}
+
+      getResolvers() {
+        return [];
+      }
     }
     const f = new Test();
     expect(getMethodMetaData(f, 'test')).toMatchSnapshot();

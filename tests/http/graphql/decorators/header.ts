@@ -7,6 +7,10 @@ describe('@Header', () => {
     @Header('foo', 'bar')
     class Test extends GraphQLController {
       test() {}
+
+      getResolvers() {
+        return [];
+      }
     }
 
     expect(getControllerMetaData(Test)).toMatchSnapshot();

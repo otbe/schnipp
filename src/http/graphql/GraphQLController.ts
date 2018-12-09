@@ -14,7 +14,6 @@ import {
   Handler
 } from 'aws-lambda';
 import { GraphQLScalarType } from 'graphql';
-import { Container, CONTAINER_INSTANCE_PROP, Newable } from 'simple-ts-di';
 import {
   APIGatewayHandler,
   DecoratedExceptionFilter,
@@ -28,6 +27,8 @@ import {
 } from '../decorators/getControllerMetaData';
 import { DefaultExecutionContext } from '../utils/ExecutionContext';
 import { ResolverMethodMeta } from './decorators/method';
+import { getFromContainer, ContainedType } from '../../container';
+import { getResolverMetaData } from './decorators/resolver';
 
 export abstract class GraphQLController implements APIGatewayHandler {
   private handler: Handler<
@@ -37,10 +38,6 @@ export abstract class GraphQLController implements APIGatewayHandler {
 
   private controllerData = getControllerMetaData(this
     .constructor as any) as GraphQLControllerData;
-
-  private get container() {
-    return (this as any)[CONTAINER_INSTANCE_PROP] as Container;
-  }
 
   async handle(
     event: APIGatewayProxyEvent,
@@ -69,12 +66,7 @@ export abstract class GraphQLController implements APIGatewayHandler {
   }
 
   private async createHandler() {
-    const resolver = this.controllerData.resolvers;
-    if (resolver == null) {
-      throw 'no resolver found';
-    }
-
-    const resolvers = resolver.reduce(
+    const resolvers = this.resolvers.reduce(
       (acc, curr) => {
         Object.keys(curr.resolverMap).forEach(typeName => {
           acc[typeName] = acc[typeName] || {};
@@ -106,7 +98,7 @@ export abstract class GraphQLController implements APIGatewayHandler {
 
   private createResolver(resolverMeta: ResolverMethodMeta<any>) {
     return async (source: any, args: any, context: any, info: any) => {
-      const resolver = await this.container.get(resolverMeta.clazz!);
+      const resolver = getFromContainer(resolverMeta.clazz!);
 
       const guards = [
         ...(resolverMeta.guards || []),
@@ -168,9 +160,7 @@ export abstract class GraphQLController implements APIGatewayHandler {
       return;
     }
 
-    const filter = await this.container.get<ExceptionFilter>(
-      exceptionFilter.filter
-    );
+    const filter = getFromContainer<ExceptionFilter>(exceptionFilter.filter);
 
     return (await filter.catch(e, executionContext, metaData)) as
       | ApolloError
@@ -178,21 +168,23 @@ export abstract class GraphQLController implements APIGatewayHandler {
   }
 
   private async processGuards(
-    guards: Array<Newable<Guard>>,
+    guards: Array<ContainedType<Guard>>,
     executionContext: DefaultExecutionContext | any,
     metaData: MetaData
   ) {
     const canActivate = (await Promise.all(
       guards.map(guard =>
-        this.container
-          .get(guard)
-          .then(guard => guard.canActivate(executionContext, metaData))
+        getFromContainer(guard).canActivate(executionContext, metaData)
       )
     )).every(Boolean);
 
     if (!canActivate) {
       throw new ForbiddenError('Forbidden');
     }
+  }
+
+  private get resolvers() {
+    return this.getResolvers().map(resolver => getResolverMetaData(resolver));
   }
 
   async createExecutionContext(
@@ -213,4 +205,6 @@ export abstract class GraphQLController implements APIGatewayHandler {
   getGraphQLScalars(): { [name: string]: GraphQLScalarType } {
     return {};
   }
+
+  abstract getResolvers(): Array<ContainedType<any>>;
 }

@@ -1,13 +1,8 @@
 import 'reflect-metadata';
-import { Guard, ExceptionFilter, createResponse } from '../../../../src/http';
-import {
-  Use,
-  GraphQLController,
-  Resolver,
-  Query
-} from '../../../../src/http/graphql';
-import { getMethodMetaData } from '../../../../src/http/graphql/decorators/method';
+import { createResponse, ExceptionFilter, Guard } from '../../../../src/http';
 import { getControllerMetaData } from '../../../../src/http/decorators/getControllerMetaData';
+import { GraphQLController, Query, Use } from '../../../../src/http/graphql';
+import { getMethodMetaData } from '../../../../src/http/graphql/decorators/method';
 
 describe('@Use', () => {
   it('should add guards and filters for methods and instances of GraphQLController', () => {
@@ -23,15 +18,19 @@ describe('@Use', () => {
       }
     }
 
-    @Use(TestGuard, Filter)
-    class Test extends GraphQLController {}
-
-    @Resolver(Test)
     class TestResolver {
       @Query('foo')
       @Use(TestGuard, Filter)
       foo() {}
     }
+
+    @Use(TestGuard, Filter)
+    class Test extends GraphQLController {
+      getResolvers() {
+        return [TestResolver];
+      }
+    }
+
     expect(getControllerMetaData(Test)).toMatchSnapshot();
     expect(getMethodMetaData(new TestResolver(), 'foo')).toMatchSnapshot();
   });

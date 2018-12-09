@@ -12,7 +12,6 @@ import {
   Meta,
   Use
 } from '../../../src/http/rest';
-import { Module, Bind, Container, Newable } from 'simple-ts-di';
 import {
   HttpVerb,
   createResponse,
@@ -22,6 +21,7 @@ import {
   Catch
 } from '../../../src/http';
 import { createHandler } from '../../../src';
+import { ContainedType } from '../../../src/container';
 
 describe('RestController', () => {
   const context: any = {};
@@ -63,10 +63,6 @@ describe('RestController', () => {
   @Meta('roles', 'foo')
   @Use(TestGuard, TestFilter)
   class Test extends RestController {
-    constructor(public service: Service) {
-      super();
-    }
-
     @GET()
     async simpleGet() {
       return handle();
@@ -118,17 +114,6 @@ describe('RestController', () => {
     }
   }
 
-  class MyModule implements Module {
-    init(bind: Bind) {
-      bind(Service);
-      bind(Test);
-      bind(TestGuard);
-      bind(TestGuard2);
-      bind(TestFilter);
-      bind(TestFilter2);
-    }
-  }
-
   beforeEach(() => {
     handle.mockReset();
     filterHandle.mockReset();
@@ -139,16 +124,8 @@ describe('RestController', () => {
     guardHandle2.mockResolvedValue(true);
   });
 
-  it('should let me inject my services', async () => {
-    const c = new Container(new MyModule());
-    const handler = await c.get(Test);
-
-    expect(handler.service).toBeTruthy();
-    expect(handler.service).toBeInstanceOf(Service);
-  });
-
   it('simple get', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({ foo: 'bar' });
 
     const res = await handler(
@@ -161,7 +138,7 @@ describe('RestController', () => {
   });
 
   it('simple post', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({ foo: 'bar2' });
 
     const res = await handler(
@@ -174,7 +151,7 @@ describe('RestController', () => {
   });
 
   it('no method found', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
 
     const res = await handler(
       routeFor('/not-found', HttpVerb.GET),
@@ -186,7 +163,7 @@ describe('RestController', () => {
   });
 
   it('failed get', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockRejectedValue(new HttpException(404));
     filterHandle.mockResolvedValue(null);
 
@@ -200,7 +177,7 @@ describe('RestController', () => {
   });
 
   it('with custom path/status code', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({ foo: 'bar3' });
 
     const res = await handler(
@@ -213,7 +190,7 @@ describe('RestController', () => {
   });
 
   it('with custom header', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({ foo: 'bar4' });
 
     const res = await handler(
@@ -226,7 +203,7 @@ describe('RestController', () => {
   });
 
   it('with path/query param', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({});
 
     const res = await handler(
@@ -245,7 +222,7 @@ describe('RestController', () => {
   });
 
   it('filter', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({});
     filterHandle.mockResolvedValue(
       createResponse(430, { message: 'filtered error' })
@@ -261,7 +238,7 @@ describe('RestController', () => {
   });
 
   it('failed filter', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({});
     filterHandle.mockRejectedValue({});
 
@@ -272,7 +249,7 @@ describe('RestController', () => {
   });
 
   it('filter with custom meta and own Use', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({});
     filterHandle2.mockResolvedValue(
       createResponse(430, { message: 'filtered error' })
@@ -289,7 +266,7 @@ describe('RestController', () => {
   });
 
   it('no matching filter', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockRejectedValue(new Error());
     filterHandle.mockResolvedValue(null);
 
@@ -300,7 +277,7 @@ describe('RestController', () => {
   });
 
   it('guard', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({});
     guardHandle.mockResolvedValue(false);
 
@@ -312,7 +289,7 @@ describe('RestController', () => {
   });
 
   it('failed guard', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({});
     guardHandle.mockRejectedValue(false);
 
@@ -323,7 +300,7 @@ describe('RestController', () => {
   });
 
   it('failed guard (with filter)', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({});
     guardHandle.mockRejectedValue(new HttpException(403));
     filterHandle.mockResolvedValue(
@@ -337,7 +314,7 @@ describe('RestController', () => {
   });
 
   it('filter with custom meta and own Use', async () => {
-    const handler = setup(MyModule, Test);
+    const handler = setup(Test);
     handle.mockResolvedValue({});
     guardHandle2.mockResolvedValue(false);
     guardHandle.mockResolvedValue(true);
@@ -351,10 +328,8 @@ describe('RestController', () => {
   });
 });
 
-function setup(module: Newable<Module>, Test: Newable<APIGatewayHandler>) {
-  const c = new Container(new module());
-  const handler = createHandler(c, Test);
-  return handler;
+export function setup(Test: ContainedType<APIGatewayHandler>) {
+  return createHandler(Test);
 }
 
 function routeFor(

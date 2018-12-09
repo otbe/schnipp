@@ -1,21 +1,18 @@
-import { MetaData, Guard, DecoratedExceptionFilter } from '..';
-import { Newable } from 'simple-ts-di';
-import { RestController } from '../rest';
+import { DecoratedExceptionFilter, Guard, MetaData } from '..';
+import { ContainedType } from '../../container';
 import { GraphQLController } from '../graphql';
-import { ResolverMeta } from '../graphql/decorators/method';
+import { RestController } from '../rest';
 
 export const CONTROLLER = Symbol('controller');
 
 export type ControllerBaseData = {
   headers: { [key: string]: string };
   filters: Array<DecoratedExceptionFilter>;
-  guards: Array<Newable<Guard>>;
+  guards: Array<ContainedType<Guard>>;
   metaData: MetaData;
 };
 
-export type GraphQLControllerData = ControllerBaseData & {
-  resolvers?: Array<ResolverMeta>;
-};
+export type GraphQLControllerData = ControllerBaseData;
 
 export type RestControllerData = ControllerBaseData & {
   basePath?: string;

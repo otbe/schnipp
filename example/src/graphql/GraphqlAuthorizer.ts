@@ -1,8 +1,6 @@
-import { inject } from 'simple-ts-di';
 import { AuthorizeHandler, AuthPolicy, HttpVerb } from '../../../dist/http';
 import { CustomAuthorizerResult, CustomAuthorizerEvent } from 'aws-lambda';
 
-@inject()
 export class GraphqlAuthorizer implements AuthorizeHandler {
   handle(event: CustomAuthorizerEvent): CustomAuthorizerResult {
     if (event.authorizationToken == null) {

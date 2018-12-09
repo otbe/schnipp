@@ -1,8 +1,6 @@
-import { inject } from 'simple-ts-di';
 import { Guard, MetaData } from '../../../dist/http';
 import { DefaultExecutionContext } from '../../../dist/http/utils/ExecutionContext';
 
-@inject()
 export class RolesGuard implements Guard {
   canActivate(executionContext: DefaultExecutionContext, metaData: MetaData) {
     if (metaData.roles) {
