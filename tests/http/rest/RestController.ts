@@ -329,7 +329,7 @@ describe('RestController', () => {
 });
 
 export function setup(Test: ContainedType<APIGatewayHandler>) {
-  return createHandler(Test);
+  return createHandler(Test, () => Promise.resolve());
 }
 
 function routeFor(
