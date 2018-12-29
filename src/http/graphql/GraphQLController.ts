@@ -141,6 +141,8 @@ export abstract class GraphQLController implements APIGatewayHandler {
           throw exception;
         }
 
+        console.error(exception);
+
         throw new ApolloError('Internal Server Error');
       }
     };
