@@ -1,6 +1,6 @@
 {
   "name": "schnipp",
-  "version": "2.0.0-10",
+  "version": "2.0.0-11",
   "description": "a simple framework to write better AWS Lambda functions",
   "keywords": [
     "TypeScript",
