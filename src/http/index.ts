@@ -24,5 +24,4 @@ export {
   ExceptionFilter
 } from './utils/ExceptionFilter';
 export { Guard } from './utils/Guard';
-export { DefaultExecutionContext } from './utils/ExecutionContext';
 export { Catch } from './decorators/catch';

@@ -4,17 +4,12 @@ import { HttpVerb } from '../../utils/AuthPolicy';
 import { DecoratedExceptionFilter } from '../../utils/ExceptionFilter';
 import { Guard } from '../../utils/Guard';
 import { MetaData } from '../../utils/MetaData';
-import { DefaultExecutionContext } from '../../utils/ExecutionContext';
 import { ContainedType } from '../../../container';
 
 const METHODS = Symbol('methods');
 
 export type ParamInjector<T> = {
-  <Context = DefaultExecutionContext>(
-    e: APIGatewayEvent,
-    metaData: MetaData,
-    context: Context
-  ): T;
+  <Context>(e: APIGatewayEvent, metaData: MetaData, context: Context): T;
 };
 
 export type InjectedParam<T> = {

@@ -25,7 +25,6 @@ import {
   getControllerMetaData,
   GraphQLControllerData
 } from '../decorators/getControllerMetaData';
-import { DefaultExecutionContext } from '../utils/ExecutionContext';
 import { ResolverMethodMeta } from './decorators/method';
 import { getFromContainer, ContainedType } from '../../container';
 import { getResolverMetaData } from './decorators/resolver';
@@ -151,7 +150,7 @@ export abstract class GraphQLController implements APIGatewayHandler {
   private async processFilters(
     filters: Array<DecoratedExceptionFilter>,
     e: any,
-    executionContext: DefaultExecutionContext | any,
+    executionContext: any,
     metaData: MetaData
   ) {
     const exceptionFilter = filters.find(x =>
@@ -171,7 +170,7 @@ export abstract class GraphQLController implements APIGatewayHandler {
 
   private async processGuards(
     guards: Array<ContainedType<Guard>>,
-    executionContext: DefaultExecutionContext | any,
+    executionContext: any,
     metaData: MetaData
   ) {
     const canActivate = (await Promise.all(
@@ -192,8 +191,8 @@ export abstract class GraphQLController implements APIGatewayHandler {
   async createExecutionContext(
     event: APIGatewayEvent,
     lambdaContext: Context
-  ): Promise<DefaultExecutionContext | any> {
-    return { authorizer: event.requestContext.authorizer };
+  ): Promise<{}> {
+    return {};
   }
 
   getApolloServerOptions(): Config {

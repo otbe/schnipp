@@ -18,7 +18,6 @@ import {
   ExceptionFilter,
   Guard
 } from '..';
-import { DefaultExecutionContext } from '../utils/ExecutionContext';
 import {
   getControllerMetaData,
   RestControllerData
@@ -109,7 +108,7 @@ export class RestController implements APIGatewayHandler {
   private async processFilters(
     filters: Array<DecoratedExceptionFilter>,
     e: any,
-    executionContext: DefaultExecutionContext | any,
+    executionContext: any,
     metaData: MetaData
   ) {
     try {
@@ -133,7 +132,7 @@ export class RestController implements APIGatewayHandler {
 
   private async processGuards(
     guards: Array<ContainedType<Guard>>,
-    executionContext: DefaultExecutionContext | any,
+    executionContext: any,
     metaData: MetaData
   ) {
     const canActivate = (await Promise.all(
@@ -150,7 +149,7 @@ export class RestController implements APIGatewayHandler {
   async createExecutionContext(
     event: APIGatewayEvent,
     lambdaContext: Context
-  ): Promise<DefaultExecutionContext | any> {
-    return { authorizer: event.requestContext.authorizer };
+  ): Promise<{}> {
+    return {};
   }
 }

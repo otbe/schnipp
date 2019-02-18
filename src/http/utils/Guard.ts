@@ -1,8 +1,7 @@
 import { MetaData } from './MetaData';
-import { DefaultExecutionContext } from './ExecutionContext';
 
-export interface Guard {
-  canActivate<Context = DefaultExecutionContext>(
+export interface Guard<Context = {}> {
+  canActivate(
     executionContext: Context,
     metaData: MetaData
   ): Promise<boolean> | boolean;
