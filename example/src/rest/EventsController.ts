@@ -8,7 +8,7 @@ import {
   Param,
   Path,
   Meta
-} from '../../../dist/http/rest';
+} from '../../../dist/http';
 import { DataMapper } from '@aws/dynamodb-data-mapper';
 import { RolesGuard } from '../guards/RolesGuard';
 import { Event } from '../models/Event';

@@ -1,7 +1,6 @@
 import { DecoratedExceptionFilter, Guard, MetaData } from '..';
 import { ContainedType } from '../../container';
-import { GraphQLController } from '../graphql';
-import { RestController } from '../rest';
+import { RestController } from '../RestController';
 
 export const CONTROLLER = Symbol('controller');
 
@@ -12,17 +11,13 @@ export type ControllerBaseData = {
   metaData: MetaData;
 };
 
-export type GraphQLControllerData = ControllerBaseData;
-
 export type RestControllerData = ControllerBaseData & {
   basePath?: string;
 };
 
-export type ControllerData = GraphQLControllerData | RestControllerData;
+export type ControllerData = RestControllerData;
 
-export const getControllerMetaData = (
-  controller: typeof RestController | typeof GraphQLController
-) => {
+export const getControllerMetaData = (controller: typeof RestController) => {
   let data: ControllerData | null = Reflect.getMetadata(CONTROLLER, controller);
 
   if (data == null) {

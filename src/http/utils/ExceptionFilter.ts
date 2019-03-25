@@ -1,9 +1,8 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
 import { MetaData } from './MetaData';
-import { ApolloError } from 'apollo-server-core';
 import { ContainedType } from '../../container';
 
-export type ExceptionFilterResponse = APIGatewayProxyResult | ApolloError;
+export type ExceptionFilterResponse = APIGatewayProxyResult;
 
 export interface ExceptionFilter<Context = {}> {
   catch(

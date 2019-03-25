@@ -16,18 +16,6 @@ events:
         path: events/{id}
         authorizer: eventsAuthorizer
 
-events2:
-  handler: src/events.handle2
-  environment:
-    EVENTS_INGRESS_QUEUE_TABLE: ${self:custom.eventsIngressQueue}
-  events:  
-    - http:
-        method: post
-        path: graphql
-        authorizer: eventsAuthorizer2   
-
 eventsAuthorizer:
   handler: src/events.authorize 
 
-eventsAuthorizer2:
-  handler: src/events.authorize2 

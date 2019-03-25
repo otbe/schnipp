@@ -1,6 +1,0 @@
-#import './Event.gql'
-
-type Query {
-  event(id: ID!): Event
-  events: [Event]
-}

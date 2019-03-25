@@ -34,9 +34,7 @@ custom:
   
 functions: 
   events: ${file(events-api.yml):events}
-  events2: ${file(events-api.yml):events2}
   eventsAuthorizer: ${file(events-api.yml):eventsAuthorizer}
-  eventsAuthorizer2: ${file(events-api.yml):eventsAuthorizer2}
            
 resources:
   Resources:
